@@ -1,0 +1,1 @@
+https://github.com/donnie4w/tklog/blob/main/README_ZH.md

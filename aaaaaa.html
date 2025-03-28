@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>LLDP INPUT</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <form name="form1" id="form1">
+      <label for="inputText">A端ip:</label>
+      <input type="text" id="inputText1" name="inputText1" />
+      <label for="dynamicSelect">端口列表:</label>
+      <select id="dynamicSelect1" name="dynamicSelect1"></select><br><br>
+      <label for="inputText1">B端ip:</label>
+      <input type="text" id="inputText2" name="inputText2" />
+      <label for="dynamicSelect">端口列表:</label>
+      <select id="dynamicSelect2" name="dynamicSelect2"></select><br><br>
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+      $(document).ready(function() {
+      	// A端ip 光标离开事件
+        $("#inputText1").blur(function (){
+        	var aVal = $("#inputText1").val();
+        	console.log('A端ip 光标离开事件', aVal);
+        	// 组织数据 下拉框赋值
+        	$('#dynamicSelect1').append($('<option></option>').attr('value', aVal).text(aVal));
+        	//
+        });
+        // B端ip 光标离开事件
+        $("#inputText2").blur(function (){
+        	var bVal = $("#inputText2").val();
+        	console.log('B端ip 光标离开事件', bVal);
+        	// 组织数据 下拉框赋值
+        	$('#dynamicSelect2').append($('<option></option>').attr('value', bVal).text(bVal));
+        });
+        
+        // form 提交
+        $("input[type='submit']").parents("form").submit(function () {
+        	alert("提交");
+        	return false;
+        });
+      });
+    </script>
+  </body>
+</html>
+
+

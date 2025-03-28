@@ -1,0 +1,12 @@
+[TRACE] 19:09:45 tk_log.rs 25:traces>>>>,AAAAAAAAA,1,2,3,4
+[DEBUG] 19:09:45 tk_log.rs 26:debugs>>>>,BBBBBBBBB,1,2,3,5
+[INFO] 19:09:45 tk_log.rs 27:infos>>>>,CCCCCCCCC,1,2,3,5
+[WARN] 19:09:45 tk_log.rs 28:warns>>>>,DDDDDDDDDD,1,2,3,6
+[ERROR] 19:09:45 tk_log.rs 29:errors>>>>,EEEEEEEE,1,2,3,7
+[FATAL] 19:09:45 tk_log.rs 30:fatals>>>>,FFFFFFFF,1,2,3,8
+[TRACE] 2024-06-05 19:10:49 tk_log.rs 25:traces>>>>,AAAAAAAAA,1,2,3,4
+[DEBUG] 2024-06-05 19:10:49 tk_log.rs 26:debugs>>>>,BBBBBBBBB,1,2,3,5
+[INFO] 2024-06-05 19:10:49 tk_log.rs 27:infos>>>>,CCCCCCCCC,1,2,3,5
+[WARN] 2024-06-05 19:10:49 tk_log.rs 28:warns>>>>,DDDDDDDDDD,1,2,3,6
+[ERROR] 2024-06-05 19:10:49 tk_log.rs 29:errors>>>>,EEEEEEEE,1,2,3,7
+[FATAL] 2024-06-05 19:10:49 tk_log.rs 30:fatals>>>>,FFFFFFFF,1,2,3,8

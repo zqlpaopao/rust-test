@@ -1,0 +1,21 @@
+   Compiling my_test v0.1.0 (/Users/zhangqiuli24/Desktop/rust/my_test)
+    Finished dev [unoptimized + debuginfo] target(s) in 7.04s
+     Running `target/debug/my_test`
+[INFO  actix_server::builder] starting 10 workers
+[INFO  actix_server::server] Actix runtime found; starting in Actix runtime
+[INFO  actix_web::middleware::logger] 127.0.0.1 "POST /err HTTP/1.1" 200 2 "-" "curl/7.79.1" 0.000141
+[INFO  actix_web::middleware::logger] 127.0.0.1 "GET /err HTTP/1.1" 404 0 "-" "curl/7.79.1" 0.000073
+[INFO  actix_web::middleware::logger] 127.0.0.1 "GET /err HTTP/1.1" 404 0 "-" "curl/7.79.1" 0.000072
+[INFO  actix_web::middleware::logger] 127.0.0.1 "POST /err HTTP/1.1" 200 2 "-" "curl/7.79.1" 0.000074
+[INFO  actix_server::server] SIGINT received; starting forced shutdown
+[INFO  actix_server::accept] accept thread stopped
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker
+[INFO  actix_server::worker] shutting down idle worker

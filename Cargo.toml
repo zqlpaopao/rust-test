@@ -1,0 +1,177 @@
+[package]
+name = "my_test"
+version = "0.1.0"
+edition = "2021"
+authors = ["zhangql"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix = "0.13.0"
+actix-cors = "0.6.0"
+actix-files = "0.6.2"
+actix-multipart = "0.6.0"
+actix-rt = "2.8.0"
+actix-web = "4.0.0"
+actix-web-actors = "4.2.0"
+actix-web-httpauth = "0.8.0"
+anyhow = "1.0.71"
+async-std = "1.7.0"
+async-stream = "0.3.5"
+async-trait = "0.1.77"
+
+#axum
+axum = "0.7.7"
+#nebula-client = { version = "0.7", features = ["graph","storage","meta"], path = "../../nebula-client" }
+# bb8
+bb8 = { version = "0.8" }
+
+#nebula
+#bb8-nebula-graph = { version ="0.4.4", features = ["graph","storage","meta"]}
+bb8-nebula = { version = "0.9", features = ["graph","impl_tokio"] }
+cargo = "0.70.1"
+chrono = "0.4.35"
+
+#
+chrono-tz = "0.10.0"
+clap = { version = "4.5.2", features = ["derive","cargo"] }
+
+#tcp
+clickhouse-rs = { git = "https://github.com/suharev7/clickhouse-rs", features = ["default"] }
+
+colored = "2.0"  #
+
+config = "0.13.1"
+
+console-subscriber = "0.2.0"
+
+crossbeam-epoch = "0.9.14"
+
+dashmap = "5.5.3"
+derive_more = "0.99"
+diesel = { version = "2.0.4", features = ["mysql"] }
+dotenvy = "0.15"
+env_logger = "0.10.0"
+fast_log = { version = "1.5", features = ["lz4","zip","gzip"] }
+
+# non-pool
+fbthrift-transport = { version = "0.9", features = ["impl_tokio"] }
+features = "0.10.0"
+flexi_logger = { version = "0.28", features = ["specfile", "compress"] }
+funty = "2.0.0"
+futures = { version = "0.3", features = ["thread-pool","executor"] }
+
+futures-core = "0.3.29"
+http-body-util = "0.1.2"
+
+# 进度条样式
+indicatif = "0.17.9"
+lazy_static = "1.4"
+log = "0.4"
+
+# 内存
+memory-stats = { version = "1.1.0", features = ["always_use_statm"] }
+#http
+#clickhouse = "0.11.6"
+mongodb = "2.8.2"
+nebula-client = { version = "0.7.3", features = ["graph","storage","meta"] }
+
+#文件监控变化进行同步
+notify ={ version = "5.2.0", features = ["serde"] }
+nu-ansi-term = "0.48.0"
+
+num_cpus = "1.0"
+prost = "0.13"
+rand = "0.8.1"
+rayon = "1.1"
+rbatis = { version = "4.5" }
+rbdc ={ version = "4.5" }
+rbdc-mysql ={ version = "4.5" }
+rbdc-sqlite = { version = "4.5" }
+
+rbs = { version = "4.5", features = ["debug_mode"] }
+
+rdkafka = { version = "0.36.2" }
+
+# if you use tokio
+redis = { version = "0.25.3", features = ["tokio-native-tls-comp","r2d2","cluster","cluster-async"] }
+# rpc 生成 proto.pb
+#tonic-build = "0.12.2"
+#prost = "0.13.2"
+#tonic = "0.10.2"
+#prost-types = { version = "0.7", optional = true }
+#tracing-subscriber = "0.3.18"
+#
+#[build-dependencies]
+#prost-build = "0.7"
+
+#reqwest 中间件
+reqwest = { version = "0.12.5", features = ["blocking", "json"] }
+reqwest-middleware = "0.3.3"
+reqwest-retry = "0.5.0"
+reqwest-tracing = "0.5.3"
+serde = { version = "1.0.160", features = ["derive"] }
+serde_derive = "1.0.160"
+serde_json = "1.0.19"
+# 由sled支持，持久化注册函数的WebAssembly模块。
+sled = "0.34"
+
+sqlx = { version = "0.6", features = [
+    "runtime-tokio-native-tls",
+    "mysql",
+    "chrono",
+    "json",
+    "macros",
+    "decimal"
+] }
+strum = "0.25.0"
+
+thiserror = "1.0"
+thousands = "0.2.0"
+thread_local = "1"
+time = "0.3.36"
+
+tklog = "0.0.3"
+tokio = { version = "1.35.1", features = ["full", "tracing"] }
+
+#websocket
+tokio-tungstenite = "0.23.1"
+
+# tokio 上线文任务取消
+# tokio 上线文信息传播
+tokio-util = { version = "0.7.11", features = ["full"] }
+toml = "0.5.9"
+
+# grpc
+tonic = "0.12.3"
+#[build-dependencies]
+tonic-build = "*"
+# 同时启动http
+tonic-web = "0.12.3"
+tower = { version = "0.5.1", features = ["full"] }
+tower-http = { version = "0.6.1", features = ["fs", "trace", "compression-br"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json", "fmt", "registry", "env-filter"] }
+tracing-appender = "0.2.3"
+
+# uuid
+uuid = { version = "1.7", features = [ "v4","v5","v6","v7","v8"] }
+#bb8-nebula = { version = "0.9", features = ["graph"], path = "../../bb8-nebula" }
+
+# webAssembly
+#HTTP服务器：使用warp构建
+warp = "0.3"
+# 执行引擎：使用wasmtime，动态执行提供输入的WebAssembly函数。
+#wasmtime = "27.0"
+wg = "0.9"
+
+
+# arroyo
+#tokio = { version = "1.0.0", features = ["full"] }
+#rdkafka = { version = "0.36.2", features = ["tokio"] }
+#futures = "0.3.30"
+#reqwest = { version = "0.12.5", features = ["json"] }
+#serde = { version = "1.0.203", features = ["derive"] }
+#serde_json = "1.0.120"
+
+
+#tch = { version = "0.19.0", features = ["python3.10"] }  # 根据实际情况修改版本和特性

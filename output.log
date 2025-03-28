@@ -1,0 +1,2 @@
+{"timestamp":"2025-02-19T02:27:22.522343Z","level":"INFO","fields":{"message":"This will be logged to both console and file"},"target":"my_test::controller::tracing::span_instrument"}
+{"timestamp":"2025-02-19T02:27:22.522446Z","level":"INFO","fields":{"message":"This is an info log message"},"target":"my_test::controller::tracing::span_instrument"}
