@@ -163,6 +163,7 @@ warp = "0.3"
 # 执行引擎：使用wasmtime，动态执行提供输入的WebAssembly函数。
 #wasmtime = "27.0"
 wg = "0.9"
+memmap2 = "0.9.5"
 
 
 # arroyo

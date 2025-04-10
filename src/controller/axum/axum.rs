@@ -1,3 +1,4 @@
+#![allow(unused)]
 use crate::controller::axum::route::routes;
 use anyhow::Result;
 use axum::middleware;

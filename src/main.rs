@@ -105,6 +105,14 @@ async fn main() {
 
     //axum及中间件
     // test_axum_code().await;
+
+    //Rust 大文件处理对比：标准库、Tokio 与内存映射的性能分析
+    test_read_big_file();
+}
+
+//Rust 大文件处理对比：标准库、Tokio 与内存映射的性能分析
+fn test_read_big_file(){
+    test_read()
 }
 
 //axum
@@ -323,6 +331,7 @@ use my_test::controller::crossbeam::test_crossbeam;
 use my_test::controller::file_reader::test_file_reader;
 use my_test::controller::file_watch_sync::test_file_watch_sync;
 use my_test::controller::grpc_protos_tonic::test_proto::test_proto;
+use my_test::controller::read_big_file::test_read;
 use my_test::controller::repr::test_repr;
 use my_test::controller::s_f_array::s_f;
 use my_test::controller::stream_trait::test_stream_trait;
