@@ -62,7 +62,6 @@ async fn index() -> &'static str {
     "Hello world!"
 }
 
-
 async fn print_request_response(
     req: Request<String>,
     next: Next,
@@ -154,7 +153,6 @@ async fn users_show(Path(id): Path<String>) -> String {
 async fn teams_list() -> String {
     "Teams list".to_string()
 }
-
 
 /********************************************** 捕获 **************************************/
 async fn users_id(Path(id): Path<String>) -> String {

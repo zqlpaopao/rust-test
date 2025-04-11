@@ -1,13 +1,13 @@
 #![allow(unused)]
+use crate::controller::axum::middleware_log;
 use crate::controller::axum::route::routes;
 use anyhow::Result;
 use axum::middleware;
 use tokio::net::TcpListener;
-use crate::controller::axum::middleware_log;
 
 pub async fn test_axum() -> Result<()> {
     let app = routes();
-        // .layer(middleware::from_fn(middleware_log::logging_middleware));
+    // .layer(middleware::from_fn(middleware_log::logging_middleware));
 
     println!("axum Listening on 0.0.0.0:3000");
 

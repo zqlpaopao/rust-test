@@ -1,12 +1,12 @@
 #![allow(dead_code)]
-use std::pin::{ Pin};
-use std::task::{Context, Poll};
-use futures::{ StreamExt};
+use futures::StreamExt;
+use futures_core::Future;
 use futures_core::Stream;
-use tokio::time::Sleep;
 use std::marker::PhantomPinned;
+use std::pin::Pin;
+use std::task::{Context, Poll};
 use std::time::Duration;
-use futures_core::Future;  // 关键：导入 Future trait
+use tokio::time::Sleep; // 关键：导入 Future trait
 
 struct IntervalCounter {
     count: u32,
@@ -30,10 +30,7 @@ impl IntervalCounter {
 impl Stream for IntervalCounter {
     type Item = u32;
 
-    fn poll_next(
-        mut self: Pin<&mut Self>,
-        cx: &mut Context<'_>
-    ) -> Poll<Option<Self::Item>> {
+    fn poll_next(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<Self::Item>> {
         if self.count >= self.max {
             return Poll::Ready(None);
         }
@@ -41,7 +38,8 @@ impl Stream for IntervalCounter {
         // 安全地访问 delay 字段
         let delay = unsafe { self.as_mut().map_unchecked_mut(|s| &mut s.delay) };
 
-        match Future::poll(delay, cx) {  // 显式调用 Future::poll
+        match Future::poll(delay, cx) {
+            // 显式调用 Future::poll
             Poll::Ready(_) => {
                 // 安全地修改 count 和 delay
                 unsafe {
@@ -66,7 +64,7 @@ pub async fn test_stream_trait() {
     // 使用适配器方法
     Box::pin(IntervalCounter::new(5))
         .map(|x| x * 2)
-        .filter(|x| std::future::ready(x % 4 == 0))  // 使用 ready 包装 bool
+        .filter(|x| std::future::ready(x % 4 == 0)) // 使用 ready 包装 bool
         .for_each(|x| async move {
             println!("Processed value: {}", x);
         })
@@ -98,5 +96,4 @@ pub async fn test_stream_trait() {
     //         else => break,
     //     }
     // }
-
 }

@@ -1,10 +1,10 @@
 // 必需的标准库引入
+use memmap2::Mmap;
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::fs::File;
 use std::io::{Read, Write};
 use std::ops::Sub;
 use std::sync::atomic::{AtomicUsize, Ordering};
-use memmap2::Mmap;
 
 // 内存追踪分配器结构体
 struct TrackingAllocator;
@@ -34,20 +34,23 @@ static GLOBAL: TrackingAllocator = TrackingAllocator;
 
 // 打印当前内存使用量
 pub fn print_memory_usage() {
-    println!("Allocated memory: {} bytes", ALLOCATED.load(Ordering::SeqCst));
+    println!(
+        "Allocated memory: {} bytes",
+        ALLOCATED.load(Ordering::SeqCst)
+    );
 }
 
 // 生成1gb 文件
 // dd if=/dev/urandom of=testfile.bin bs=1M count=1024 status=progress
 
-pub fn test_read(){
+pub fn test_read() {
     println!("Reading from file");
     let t = chrono::Local::now();
 
     //标准库
-   // let _ = normal("./testfile.bin");
-   //  print_memory_usage();
-   //  println!("耗时 {}",chrono::Local::now().sub(t).to_string());
+    // let _ = normal("./testfile.bin");
+    //  print_memory_usage();
+    //  println!("耗时 {}",chrono::Local::now().sub(t).to_string());
 
     // Reading from file
     // Allocated memory: 1073832794 bytes
@@ -65,20 +68,17 @@ pub fn test_read(){
     //mmap
     let _ = io_mmap("./testfile.bin");
     print_memory_usage();
-    println!("耗时 {}",chrono::Local::now().sub(t).to_string());
+    println!("耗时 {}", chrono::Local::now().sub(t).to_string());
     //Allocated memory: 90970 bytes
     // Allocated memory: 90970 bytes
     // 耗时 PT2.608394S
-
 }
-
 
 /****************************************************************/
 
-
 //标准库
 /// 该函数用于读取指定文件的内容，并将其写入到另一个文件中，同时打印内存使用情况。
-fn normal(file_path: &str)->anyhow::Result<()> {
+fn normal(file_path: &str) -> anyhow::Result<()> {
     let mut file = File::open(file_path)?;
     let mut buffer = Vec::new();
     file.read_to_end(&mut buffer)?; // 读取文件内容到缓冲区
@@ -103,7 +103,7 @@ async fn tokio_io(file_path: &str) -> anyhow::Result<()> {
 }
 
 // 文件件映射到内存，并将其内容写入到新文件中。
-fn io_mmap(file_path: &str)->anyhow::Result<()> {
+fn io_mmap(file_path: &str) -> anyhow::Result<()> {
     let file = File::open(file_path).expect("failed to open the file");
     let mmap = unsafe { Mmap::map(&file).expect("failed to map the file") };
 

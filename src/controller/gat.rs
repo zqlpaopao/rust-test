@@ -1,4 +1,3 @@
-
 #![allow(unused)]
 // https://mp.weixin.qq.com/s/3pivqhoyjFqJVjJbKyLCbA
 
@@ -6,21 +5,20 @@ use std::error::Error;
 use std::future::Future;
 use std::marker::PhantomData;
 
-trait DistributedStore{
-    type Key : Clone + Send + Sync + 'static;
-    type Value : Clone + Send + Sync + 'static;
-    type Error : Error + Send + Sync + 'static;
+trait DistributedStore {
+    type Key: Clone + Send + Sync + 'static;
+    type Value: Clone + Send + Sync + 'static;
+    type Error: Error + Send + Sync + 'static;
 
-    type SetFuture<'a> : Future<Output= Result<(), Self::Error>> + Send + 'a
+    type SetFuture<'a>: Future<Output = Result<(), Self::Error>> + Send + 'a
     where
         Self: 'a;
-    fn
-    set(&self,key :Self::Key,value:Self::Value) -> Self::SetFuture<'_>;
+    fn set(&self, key: Self::Key, value: Self::Value) -> Self::SetFuture<'_>;
 }
 
 // Implementation for Redis
-struct RedisStore{
-    client : redis::Client,
+struct RedisStore {
+    client: redis::Client,
 }
 
 // impl DistributedStore for RedisStore {

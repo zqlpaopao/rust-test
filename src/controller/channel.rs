@@ -3,7 +3,7 @@ use std::time::Duration;
 use tokio::sync::{broadcast, mpsc, oneshot, watch};
 
 // https://mp.weixin.qq.com/s?__biz=Mzg5MjA1ODYzNg==&mid=2247486703&idx=1&sn=3946034dd136af916336ae04b4fd6fc3&chksm=cfc2a18cf8b5289a8f14eec502a6f4f8d2222e8c5e8da61fcafcba91d70e64367b995a5059b9&scene=178&cur_album_id=2361592668113420289#rd
-pub async  fn test_channel(){
+pub async fn test_channel() {
     //单生产者、单消费者
     // oneshot().await;
 
@@ -18,7 +18,7 @@ pub async  fn test_channel(){
 }
 
 //多个生产者，单一消费者
-async fn mpsc(){
+async fn mpsc() {
     let (tx, mut rx) = mpsc::channel(3);
 
     tokio::spawn(async move {
@@ -46,7 +46,7 @@ async fn mpsc(){
 }
 
 // 多生产者、多消费者
-pub async fn broadcast(){
+pub async fn broadcast() {
     let (tx, mut rx1) = broadcast::channel(2);
     let mut rx2 = tx.subscribe();
 
@@ -89,9 +89,8 @@ pub async fn broadcast(){
     // Task 1 is cleaning up
 }
 
-
 //单生产者、多消费者
-pub async fn watch(){
+pub async fn watch() {
     let (tx, mut rx1) = watch::channel(false);
 
     let mut rx2 = tx.subscribe();
@@ -143,12 +142,11 @@ pub async fn watch(){
     // Task 1 is cleaning up
     // Task 2 is cancelling...
     // Task 2 is cleaning up
-
 }
 
 // 单生产者 单消费者
-pub async  fn oneshot(){
-    let (tx,rx) = oneshot::channel();
+pub async fn oneshot() {
+    let (tx, rx) = oneshot::channel();
 
     let task = tokio::spawn(async move {
         tokio::select! {

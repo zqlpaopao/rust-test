@@ -1,16 +1,15 @@
 #![allow(unused)]
 // https://mp.weixin.qq.com/s/BvrUxLlb7rUuQUK7MUo5PA
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone)]
 struct Request {
     path: String,
     method: String,
     param: String,
 }
 
-
-trait FromRequest{
-    fn from_request(req : &Request) -> Self;
+trait FromRequest {
+    fn from_request(req: &Request) -> Self;
 }
 
 pub struct Path(pub String);
@@ -29,16 +28,16 @@ impl FromRequest for Method {
     }
 }
 
-trait Handler<T>{
-    fn call(self,req:Request);
+trait Handler<T> {
+    fn call(self, req: Request);
 }
 
-impl<T,F> Handler<T> for F
+impl<T, F> Handler<T> for F
 where
-    F : Fn(T),
-    T : FromRequest,
+    F: Fn(T),
+    T: FromRequest,
 {
-    fn call(self,req:Request) {
+    fn call(self, req: Request) {
         self(T::from_request(&req))
     }
 }
@@ -49,23 +48,26 @@ fn hello_world(Path(p): Path) {
 }
 
 // ************************** 多参数 **********************
-impl <T1,T2,F>  Handler<(T1,T2)> for F
+impl<T1, T2, F> Handler<(T1, T2)> for F
 where
-    F : Fn(T1,T2),
-    T1 : FromRequest,
-    T2 : FromRequest,
+    F: Fn(T1, T2),
+    T1: FromRequest,
+    T2: FromRequest,
 {
-    fn call(self,req:Request) {
+    fn call(self, req: Request) {
         self(T1::from_request(&req), T2::from_request(&req))
     }
 }
 
-fn hello_world2(Path(p): Path,Method(m): Method) {
+fn hello_world2(Path(p): Path, Method(m): Method) {
     dbg!(p);
     dbg!(m);
 }
 
-fn server<R,H>(req: Request,handler:H) where H: Handler<R> {
+fn server<R, H>(req: Request, handler: H)
+where
+    H: Handler<R>,
+{
     handler.call(req);
 }
 

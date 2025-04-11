@@ -102,16 +102,23 @@ async fn main() {
     //stream trait
     // test_streams().await;
 
-
     //axum及中间件
     // test_axum_code().await;
 
     //Rust 大文件处理对比：标准库、Tokio 与内存映射的性能分析
-    test_read_big_file();
+    // test_read_big_file();
+
+    //编程模式-继承
+    test_code()
+}
+
+//编程模式-继承
+fn test_code(){
+    test_jc();
 }
 
 //Rust 大文件处理对比：标准库、Tokio 与内存映射的性能分析
-fn test_read_big_file(){
+fn test_read_big_file() {
     test_read()
 }
 
@@ -120,14 +127,13 @@ async fn test_axum_code() {
     test_axum().await.unwrap();
 }
 
-
 //stream
-async fn test_streams(){
+async fn test_streams() {
     test_stream_trait().await
 }
 
 //自定义神经网络
-fn test_work(){
+fn test_work() {
     //
     // test_network()
     //
@@ -135,13 +141,12 @@ fn test_work(){
 }
 
 //tracing instrument
-fn test_instrument1(){
+fn test_instrument1() {
     test_instrument()
 }
 
-
 // channel 测试
-async fn test_channels(){
+async fn test_channels() {
     test_channel().await;
 }
 
@@ -199,7 +204,6 @@ async fn test_nebula() {
 async fn test_into_future() {
     future_into_future::run().await;
 }
-
 
 // 策略
 fn test_code_model() {
@@ -327,6 +331,7 @@ use my_test::controller::arroyo_stream_msg::test_arroyo_kafka;
 use my_test::controller::atomic::test_atomic;
 use my_test::controller::axum::axum::test_axum;
 use my_test::controller::channel::test_channel;
+use my_test::controller::code_mode::jc::test_jc;
 use my_test::controller::crossbeam::test_crossbeam;
 use my_test::controller::file_reader::test_file_reader;
 use my_test::controller::file_watch_sync::test_file_watch_sync;

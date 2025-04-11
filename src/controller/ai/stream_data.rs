@@ -23,7 +23,9 @@ impl Layer {
             .iter()
             .enumerate()
             .map(|(i, neuron_weights)| {
-                let sum: f64 = neuron_weights.iter().zip(input.iter())
+                let sum: f64 = neuron_weights
+                    .iter()
+                    .zip(input.iter())
                     .map(|(w, i)| w * i)
                     .sum();
                 sigmoid(sum + self.biases[i])
@@ -51,7 +53,8 @@ struct NeuralNetwork {
 
 impl NeuralNetwork {
     fn new(layer_sizes: &[usize]) -> NeuralNetwork {
-        let layers = layer_sizes.windows(2)
+        let layers = layer_sizes
+            .windows(2)
             .map(|w| Layer::new(w[0], w[1]))
             .collect();
         NeuralNetwork { layers }
@@ -60,7 +63,7 @@ impl NeuralNetwork {
     fn forward(&self, input: &[f64]) -> Vec<f64> {
         self.layers
             .iter()
-            .fold(input.to_vec(), | acc, layer| layer.forward(&acc))
+            .fold(input.to_vec(), |acc, layer| layer.forward(&acc))
     }
 
     fn backward(&mut self, inputs: &[f64], target: &[f64], learning_rate: f64) {
@@ -70,13 +73,20 @@ impl NeuralNetwork {
             current_input = layer.forward(&current_input);
             layer_inputs.push(current_input.clone());
         }
-        let error = layer_inputs.last().unwrap()
+        let error = layer_inputs
+            .last()
+            .unwrap()
             .iter()
             .zip(target.iter())
             .map(|(o, t)| o - t)
             .collect::<Vec<_>>();
         let mut current_error = error;
-        for (layer, inputs) in self.layers.iter_mut().rev().zip(layer_inputs.iter().rev().skip(1)) {
+        for (layer, inputs) in self
+            .layers
+            .iter_mut()
+            .rev()
+            .zip(layer_inputs.iter().rev().skip(1))
+        {
             current_error = layer.backward(inputs, &current_error, learning_rate);
         }
     }
@@ -89,10 +99,12 @@ fn sigmoid(x: f64) -> f64 {
 
 // 计算损失
 fn mean_squared_error(predicted: &[f64], actual: &[f64]) -> f64 {
-    predicted.iter()
+    predicted
+        .iter()
         .zip(actual.iter())
         .map(|(p, a)| (p - a).powi(2))
-        .sum::<f64>() / predicted.len() as f64
+        .sum::<f64>()
+        / predicted.len() as f64
 }
 
 // 滑动窗口生成
@@ -103,7 +115,13 @@ fn create_sliding_windows(data: &[f64], window_size: usize) -> Vec<Vec<f64>> {
 }
 
 // 训练模型
-fn train_model(network: &mut NeuralNetwork, data: &[Vec<f64>], targets: &[Vec<f64>], learning_rate: f64, epochs: usize) {
+fn train_model(
+    network: &mut NeuralNetwork,
+    data: &[Vec<f64>],
+    targets: &[Vec<f64>],
+    learning_rate: f64,
+    epochs: usize,
+) {
     for epoch in 0..epochs {
         let mut loss = 0.0;
         for (input, target) in data.iter().zip(targets.iter()) {
@@ -131,7 +149,8 @@ pub fn test_stream() {
     let windows = create_sliding_windows(&data, window_size);
 
     // 目标值（下一个时间点的值）
-    let targets = data[window_size..].iter()
+    let targets = data[window_size..]
+        .iter()
         .map(|&x| vec![x])
         .collect::<Vec<Vec<f64>>>();
 
