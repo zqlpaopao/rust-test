@@ -36,7 +36,7 @@ pub mod wait_group;
 pub mod actix_web_sse;
 pub mod ai;
 pub mod arroyo_stream_msg;
-pub mod asref_deref;
+pub mod as_ref;
 mod async_callback;
 mod async_trait;
 pub mod atomic;

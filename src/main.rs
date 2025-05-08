@@ -109,8 +109,21 @@ async fn main() {
     // test_read_big_file();
 
     //编程模式-继承
-    test_code()
+    // test_code();
+
+    //测试 as ref
+    test_as_red_deref()
 }
+
+
+//测试 as ref
+fn test_as_red_deref() {
+    // test_as_ref_deref()
+
+    test_as_ref()
+
+}
+
 
 //编程模式-继承
 fn test_code(){
@@ -233,9 +246,7 @@ fn atomic() {
 }
 
 // 测试 asref deref  & *
-fn test_as_red_deref() {
-    // test_as_ref_deref()
-}
+
 
 // uuid
 fn test_uuids() {
@@ -327,6 +338,7 @@ use diesel::IntoSql;
 use my_test::controller::ai::stream_data::test_stream;
 use my_test::controller::ai::zi_ding_yi_ai::test_network;
 use my_test::controller::arroyo_stream_msg::test_arroyo_kafka;
+use my_test::controller::as_ref::test_as_ref;
 // use my_test::controller::asref_deref::test_as_ref_deref;
 use my_test::controller::atomic::test_atomic;
 use my_test::controller::axum::axum::test_axum;
