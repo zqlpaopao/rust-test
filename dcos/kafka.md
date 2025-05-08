@@ -80,6 +80,13 @@ networks:
 
 
 ```
+当访问 localhost:10010 返回 404 错误时，通常是由于 Kafka-UI 的上下文路径（SERVER_SERVLET_CONTEXT_PATH）配置与访问方式不匹配导致的。以下是完整的排查和解决方案：
+
+您在环境变量中设置了 SERVER_SERVLET_CONTEXT_PATH=/ui-kafka，这意味着：
+
+Kafka-UI 的实际访问路径应为 http://localhost:10010/ui-kafka
+
+直接访问 http://localhost:10010 会返回 404
 
 docker 设置有认证的[地址](https://blog.csdn.net/yztezhl/article/details/127627854)
 
