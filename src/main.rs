@@ -112,7 +112,11 @@ async fn main() {
     // test_code();
 
     //测试 as ref
-    test_as_red_deref()
+    // test_as_red_deref()
+
+    // tokio mpmc
+    test_tokio_mp_mc().await;
+
 }
 
 
@@ -122,6 +126,12 @@ fn test_as_red_deref() {
 
     test_as_ref()
 
+}
+
+
+// tokio mpmc
+async  fn test_tokio_mp_mc(){
+    test_tokio_mpmc().await;
 }
 
 
@@ -353,6 +363,7 @@ use my_test::controller::repr::test_repr;
 use my_test::controller::s_f_array::s_f;
 use my_test::controller::stream_trait::test_stream_trait;
 use my_test::controller::test_trait::test_trait;
+use my_test::controller::tokio_mpmc::test_tokio_mpmc;
 use my_test::controller::type_change::test_type_change;
 use my_test::controller::uuid::test_uuid;
 

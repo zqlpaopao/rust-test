@@ -1,4 +1,5 @@
 // 必需的标准库引入
+#![allow(unused)]
 use memmap2::Mmap;
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::fs::File;

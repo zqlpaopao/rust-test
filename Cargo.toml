@@ -176,3 +176,5 @@ memmap2 = "0.9.5"
 
 
 #tch = { version = "0.19.0", features = ["python3.10"] }  # 根据实际情况修改版本和特性
+
+tokio-mpmc = "0.1"
