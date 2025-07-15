@@ -1,0 +1,45 @@
+# 第一阶段：构建阶段
+FROM rust:1.84-slim as builder
+
+# 设置 Rust 国内镜像和Cargo国内源
+ENV RUSTUP_DIST_SERVER=https://rsproxy.cn \
+    RUSTUP_UPDATE_ROOT=https://rsproxy.cn/rustup \
+    CARGO_BUILD_JOBS=$(nproc)
+
+RUN mkdir -p /usr/local/cargo/git && \
+    mkdir -p ~/.cargo && \
+    echo '[source.crates-io]' > ~/.cargo/config && \
+    echo 'replace-with = "rsproxy"' >> ~/.cargo/config && \
+    echo '[source.rsproxy]' >> ~/.cargo/config && \
+    echo 'registry = "https://rsproxy.cn/crates.io-index"' >> ~/.cargo/config && \
+    echo '[net]' >> ~/.cargo/config && \
+    echo 'git-fetch-with-cli = true' >> ~/.cargo/config
+
+# 使用国内 apt 源
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    sed -i 's/security.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y libssl-dev pkg-config && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# 先复制构建必需文件以利用缓存
+COPY Cargo.toml Cargo.lock ./
+RUN cargo fetch --locked
+
+# 然后复制剩余文件
+COPY src ./src
+
+# 构建
+RUN cargo build --release && \
+    cargo install samply
+
+# 第二阶段：运行阶段
+FROM gcr.io/distroless/cc-debian11
+
+COPY --from=builder /app/target/release/ipc-server /usr/local/bin/
+COPY --from=builder /root/.cargo/bin/samply /usr/local/bin/
+
+EXPOSE 8080
+CMD ["samply", "record", "/usr/local/bin/ipc-server", "--config", "config.toml"]

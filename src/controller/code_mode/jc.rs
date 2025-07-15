@@ -2,8 +2,8 @@
 use anyhow::Result;
 
 pub trait Cmder {
-    fn check(&self) -> Result<()>;  // 改为实例方法
-    fn doing(&self) -> Result<()>;  // 改为实例方法
+    fn check(&self) -> Result<()>; // 改为实例方法
+    fn doing(&self) -> Result<()>; // 改为实例方法
 }
 
 struct Object;
@@ -47,7 +47,8 @@ pub fn test_jc() -> Result<()> {
     let mut obj = Object;
 
     // 将函数指针转换为 trait 对象
-    let cmd: &dyn CmdAbleTrait = &(example_cmd as for<'a> fn(&'a mut (dyn Cmder + 'a)) -> Result<(), anyhow::Error>);
+    let cmd: &dyn CmdAbleTrait =
+        &(example_cmd as for<'a> fn(&'a mut (dyn Cmder + 'a)) -> Result<(), anyhow::Error>);
 
     cmd.run(&mut obj)?;
 

@@ -115,28 +115,31 @@ async fn main() {
     // test_as_red_deref()
 
     // tokio mpmc
-    test_tokio_mp_mc().await;
+    // test_tokio_mp_mc().await;
 
+    //stack error
+    test_stack_error1()
 }
 
+//stack error
+fn test_stack_error1() {
+    test_stack_error()
+}
 
 //测试 as ref
 fn test_as_red_deref() {
     // test_as_ref_deref()
 
     test_as_ref()
-
 }
 
-
 // tokio mpmc
-async  fn test_tokio_mp_mc(){
+async fn test_tokio_mp_mc() {
     test_tokio_mpmc().await;
 }
 
-
 //编程模式-继承
-fn test_code(){
+fn test_code() {
     test_jc();
 }
 
@@ -257,7 +260,6 @@ fn atomic() {
 
 // 测试 asref deref  & *
 
-
 // uuid
 fn test_uuids() {
     test_uuid()
@@ -361,6 +363,7 @@ use my_test::controller::grpc_protos_tonic::test_proto::test_proto;
 use my_test::controller::read_big_file::test_read;
 use my_test::controller::repr::test_repr;
 use my_test::controller::s_f_array::s_f;
+use my_test::controller::stack_error::test_stack_error;
 use my_test::controller::stream_trait::test_stream_trait;
 use my_test::controller::test_trait::test_trait;
 use my_test::controller::tokio_mpmc::test_tokio_mpmc;
