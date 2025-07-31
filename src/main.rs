@@ -118,7 +118,14 @@ async fn main() {
     // test_tokio_mp_mc().await;
 
     //stack error
-    test_stack_error1()
+    // test_stack_error1()
+
+    test_profilings()
+}
+
+
+fn test_profilings(){
+    test_profiling()
 }
 
 //stack error
@@ -360,6 +367,7 @@ use my_test::controller::crossbeam::test_crossbeam;
 use my_test::controller::file_reader::test_file_reader;
 use my_test::controller::file_watch_sync::test_file_watch_sync;
 use my_test::controller::grpc_protos_tonic::test_proto::test_proto;
+use my_test::controller::profiling_test::test_profiling;
 use my_test::controller::read_big_file::test_read;
 use my_test::controller::repr::test_repr;
 use my_test::controller::s_f_array::s_f;
