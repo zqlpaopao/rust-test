@@ -86,8 +86,9 @@ pub mod web_assembly;
 pub mod websocket;
 
 mod ipc;
-pub mod stream_tidy;
 mod non_lock_queue;
 pub mod profiling_test;
+pub mod stream_tidy;
 
 pub mod zola;
+pub mod fast_paths;

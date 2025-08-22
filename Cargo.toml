@@ -173,3 +173,12 @@ stackerror = "0.6.0"
 #profile-with-tracy = ["profiling/profile-with-tracy"]
 
 profiling = { version ="1.0.17" }
+
+# hash
+whirlwind = "0.1.1"
+
+
+
+flurry = "0.5.2"
+
+fast_paths = "1.0.0"

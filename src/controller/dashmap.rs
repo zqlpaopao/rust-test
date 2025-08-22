@@ -1,10 +1,155 @@
 // https://mp.weixin.qq.com/s/AY-29Xgfimp34hvu6Jhb6w
-
+#![allow(unused)]
 use dashmap::DashMap;
 use std::collections::hash_map::RandomState;
-// use dashmap::try_result::TryResult;
+use std::collections::HashMap;
+use std::sync::Arc;
+use std::time::Duration;
+use whirlwind::ShardMap;
+use tokio::sync::RwLock;
 
-pub fn dash_map_test() {
+pub async fn dash_map_test() {
+    //基础测试
+    // base_test()
+
+    //线程安全 dashmap 在异步中 下面的会死锁
+    // test_thread_hash().await
+
+
+    // test_whirlwind().await;
+    test_flurry().await;
+
+}
+
+async fn test_flurry() {
+    // 使用String作为值类型，避免引用问题
+    let map = Arc::new(RwLock::new(HashMap::<i32, String>::new()));
+
+    // 写入数据
+    {
+        let mut write_guard = map.write().await;
+        write_guard.insert(100, "a".to_string());
+        write_guard.insert(200, "b".to_string());
+    }
+
+    let mut handles = vec![];
+    for i in 0..10 {
+        let map = map.clone();
+        handles.push(tokio::spawn(async move {
+            // 读取
+            {
+                let read_guard = map.read().await;
+                if let Some(v) = read_guard.get(&1) {
+                    println!("Task {} read: {}", i, v);
+                }
+            }
+
+            // 写入 - 先创建持久化的String
+            let value = format!("value-{}", i);
+            {
+                let mut write_guard = map.write().await;
+                write_guard.insert(i, value); // 转移所有权
+            }
+
+            tokio::time::sleep(Duration::from_secs(1)).await;
+        }));
+    }
+
+    for h in handles {
+        h.await.unwrap();
+    }
+
+    let final_map = map.read().await;
+    println!("Final: {:?}", *final_map);
+}
+
+
+// 还有papaya
+async  fn test_whirlwind(){
+    // Initialize ShardMap manually since it doesn't implement FromIterator
+    let maps = ShardMap::with_capacity(3);
+    maps.insert(100, "one").await;
+    maps.insert(200, "two").await;
+    maps.insert(300, "three").await;
+
+    let mut handles = vec![];
+
+    for i in 0..10 {
+        // Clone the Arc inside ShardMap for each task
+        let maps = maps.clone();
+
+        handles.push(tokio::spawn(async move {
+            // Read operation example
+            if let Some(value) = maps.get(&100).await {
+                println!("Thread {:#?} read: {:#?}", i, value.to_string());
+            }
+
+            maps.insert(i, "lk").await;
+
+            if let Some(mut value) = maps.get_mut(&0).await {
+                *value = "modified";
+            }
+
+            // tokio::time::sleep(Duration::from_secs(1)).await;
+        }));
+    }
+
+    // Need to clone for use outside the loop
+    let maps_clone = maps.clone();
+    if let Some(mut value) = maps_clone.get_mut(&0).await {
+        *value = "main thread modified";
+    }
+
+    // tokio::time::sleep(Duration::from_secs(1)).await;
+
+    for handle in handles {
+        let _ = handle.await;
+    }
+
+    // Print contents manually since ShardMap doesn't implement Debug
+    println!("Final map contents:");
+
+    // 记录大小即可
+    println!("ShardMap size: {}", maps.len().await);
+
+}
+
+
+//
+
+async fn  test_thread_hash(){
+    let maps: Arc<DashMap<i32, &str>> = Arc::new(
+        vec![(100, "one"), (200, "two"), (300, "three")]
+            .into_iter()
+            .collect()
+    );
+
+    let mut handles = vec![];
+
+    for i in 0..10 {
+        let map = Arc::clone(&maps);
+
+        handles.push(tokio::spawn(async move {
+            // Read operation example
+            if let Some(value) = map.get(&1) {
+                println!("Thread {} read: {}", i, *value);
+            }
+            map.insert(i,"lk");
+            let _x = map.get_mut(&0);
+            tokio::time::sleep(Duration::from_secs(10)).await;
+        }));
+    }
+
+    let _x = maps.get_mut(&0);
+    tokio::time::sleep(Duration::from_secs(10)).await;
+
+    for handle in handles {
+        let _ = handle.await;
+    }
+    println!("{:#?}", maps);
+}
+
+fn base_test() {
     let reviews = DashMap::with_capacity(5);
     reviews.insert(2, 4);
     reviews.insert(8, 16);

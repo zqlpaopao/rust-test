@@ -120,11 +120,19 @@ async fn main() {
     //stack error
     // test_stack_error1()
 
-    test_profilings()
+    // test_profilings()
+
+    //dash
+    // test_dash_map().await;
+    test_fast_pa().await;
 }
 
 
-fn test_profilings(){
+async fn test_fast_pa(){
+    test_fn_paths().await;
+}
+
+fn test_profilings() {
     test_profiling()
 }
 
@@ -364,6 +372,7 @@ use my_test::controller::axum::axum::test_axum;
 use my_test::controller::channel::test_channel;
 use my_test::controller::code_mode::jc::test_jc;
 use my_test::controller::crossbeam::test_crossbeam;
+use my_test::controller::fast_paths::test_fn_paths;
 use my_test::controller::file_reader::test_file_reader;
 use my_test::controller::file_watch_sync::test_file_watch_sync;
 use my_test::controller::grpc_protos_tonic::test_proto::test_proto;
@@ -492,8 +501,8 @@ fn test_phan_tom_data() {
     phantom_data::test_phan_tom_data()
 }
 
-fn test_dash_map() {
-    dashmap::dash_map_test();
+async fn test_dash_map() {
+    dashmap::dash_map_test().await;
 }
 
 async fn test_async() {
