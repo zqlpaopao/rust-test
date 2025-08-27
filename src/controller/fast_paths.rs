@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(default)]
-pub struct xxx {
+pub struct Xxx {
     pub local_dev_id: String,    // VARCHAR(45)
     pub local_ip: String,        // VARCHAR(45)
     pub local_if_name: String,   // VARCHAR(500)
@@ -17,7 +17,7 @@ pub struct xxx {
     pub remote_role: String,     // VARCHAR(45)
 
 }
-crud!(xxx {}); // impl_insert!($table {}) + impl_select!($table {}) + impl_update!($table {}) + impl_delete!($table {});
+crud!(Xxx {}); // impl_insert!($table {}) + impl_select!($table {}) + impl_update!($table {}) + impl_delete!($table {});
 
 pub async fn test_fn_paths(){
 
@@ -30,7 +30,7 @@ pub async fn test_fn_paths(){
     rb.init(MysqlDriver {}, DB_URL).expect("mysql init fail");
     debug!("start...");
 
-    let res = xxx::select_all(&rb).await.unwrap();
+    let res = Xxx::select_all(&rb).await.unwrap();
 
     let  mut i = 0;
 
@@ -52,9 +52,6 @@ pub async fn test_fn_paths(){
 
     let mut input_graph = InputGraph::new();
 
-    let role = HashMap::from([
-
-    ]);
 
 
     for (_,v) in res.into_iter().enumerate(){

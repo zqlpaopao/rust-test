@@ -56,9 +56,9 @@ pub fn routes() -> axum::Router {
 }
 
 async fn index() -> &'static str {
-    error!("Received request for /");
-    info!("Received request for /");
-
+    // error!("Received request for /");
+    // info!("Received request for /");
+    tokio::time::sleep(Duration::from_secs(5)).await;
     "Hello world!"
 }
 

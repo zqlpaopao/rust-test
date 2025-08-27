@@ -103,7 +103,7 @@ async fn main() {
     // test_streams().await;
 
     //axum及中间件
-    // test_axum_code().await;
+    test_axum_code().await;
 
     //Rust 大文件处理对比：标准库、Tokio 与内存映射的性能分析
     // test_read_big_file();
@@ -124,7 +124,7 @@ async fn main() {
 
     //dash
     // test_dash_map().await;
-    test_fast_pa().await;
+    // test_fast_pa().await;
 }
 
 

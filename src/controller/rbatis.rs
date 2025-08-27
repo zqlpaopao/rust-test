@@ -101,7 +101,7 @@ pub struct Activity {
 
 //custom table name
 crud!(Activity {},"activity");
-crud!(Activity {}); // impl_insert!($table {}) + impl_select!($table {}) + impl_update!($table {}) + impl_delete!($table {});
+// crud!(Activity {}); // impl_insert!($table {}) + impl_select!($table {}) + impl_update!($table {}) + impl_delete!($table {});
 
 // ******************************************** 测试 *********************************************
 

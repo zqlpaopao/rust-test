@@ -92,3 +92,4 @@ pub mod stream_tidy;
 
 pub mod zola;
 pub mod fast_paths;
+pub mod batched;
